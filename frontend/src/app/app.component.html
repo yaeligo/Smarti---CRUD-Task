@@ -1,0 +1,98 @@
+<div class="alert alert-danger" *ngIf="error">{{ error }}</div>
+<div class="alert alert-success" *ngIf="success">{{ success }}</div>
+
+<div id="theForm">
+  <h2>The form</h2>
+  <form #f="ngForm" name="theForm" (submit)="addCar(f)">
+    <div class="form-group">
+      <label>Model</label>
+      <input
+        type="text"
+        class="form-control"
+        name="model"
+        [(ngModel)]="car.model"
+        #carModel="ngModel"
+        required
+        pattern="^[a-zA-Z ]+$"
+      />
+      <small
+        class="form-text text-danger"
+        *ngIf="carModel.errors?.required && carModel.touched"
+      >
+        The model name is required
+      </small>
+      <small
+        class="form-text text-danger"
+        *ngIf="carModel.errors?.pattern && carModel.touched"
+      >
+        The model name can only contain the letters a-z or A-Z
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Price</label>
+      <input
+        type="number"
+        class="form-control"
+        name="price"
+        required
+        [(ngModel)]="car.price"
+        #carPrice="ngModel"
+      />
+      <small
+        class="form-text text-danger"
+        *ngIf="carPrice.errors?.required && carPrice.touched"
+      >
+        The price is required
+      </small>
+    </div>
+
+    <button class="btn btn-primary btn-sm" [disabled]="f.invalid">Add</button>
+  </form>
+</div>
+
+<div id="theList">
+  <h2>The list</h2>
+
+  <div class="container">
+    <div *ngFor="let item of cars; let i = index" class="row">
+      <div class="col-4">
+        <input
+          type="text"
+          [(ngModel)]="cars[i].model"
+          class="form-control"
+          required
+          pattern="^[a-zA-Z]+$"
+          #model="ngModel"
+          [ngClass]="{ 'is-invalid': model.touched && model.invalid }"
+        />
+      </div>
+      <div class="col-4">
+        <input
+          type="number"
+          [(ngModel)]="cars[i].price"
+          class="form-control"
+          required
+          #price="ngModel"
+          [ngClass]="{ 'is-invalid': price.touched && price.invalid }"
+        />
+      </div>
+      <div class="col-4">
+        <input
+          type="button"
+          value="Update"
+          class="btn btn-primary btn-sm"
+          [disabled]="model.invalid || price.invalid"
+          (click)="updateCar(model, price, item.id)"
+        />
+
+        <input
+          type="button"
+          value="Delete"
+          class="btn btn-danger btn-sm"
+          (click)="deleteCar(item.id? item.id:0)"
+        />
+      </div>
+    </div>
+  </div>
+</div>
