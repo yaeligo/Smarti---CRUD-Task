@@ -1,6 +1,10 @@
-# angular-with_php_backend
-Angular app with PHP backend
+# Angular CRUD (Create Read Update Delete) with php and mysql:
 
-Accompanies the tutorial at https://goo.gl/jZ4UAa "Learn to code Angular app with PHP backend"
+# Angular is a client side
+1. Open by Visual Studio Code.
+2. In Visual Studio Code run command: "npm run start".
 
-Compatible with PHP 7 and Angular 7
+# Php + Laravel as Backend - Restful Api
+1. You can open it with "Atom" App.
+2. There is connent with MySql.
+
